@@ -12,23 +12,26 @@ export default class PersonalInfo extends Component {
         { class: 'phoneNumber', label: 'Phone Number:', type: 'tel' },
         { class: 'email', label: 'Email Address:', type: 'email' },
         { class: 'address', label: 'Physical Address:' },
+        {
+          class: 'areasOfExpertise',
+          label: 'Areas of Expertise',
+          multipleInputs: true,
+        },
       ],
     };
-  }
-
-  saveEdit(tempValues) {
-    this.props.saveEdit(tempValues);
   }
 
   render() {
     return (
       <div className='personalInfo'>
-        <h1 key={'heading'}>Personal Info</h1>
+        <div className='header'>
+          <h1 key={'heading'}>Personal Info</h1>
+        </div>
         <Fields
-          personalInfo={this.props.personalInfo}
+          fieldInfo={this.props.fieldInfo}
           fields={this.state.fields}
           editing={this.state.editing}
-          saveEdit={this.saveEdit.bind(this)}
+          saveEdit={this.props.saveEdit.bind(this)}
         />
       </div>
     );

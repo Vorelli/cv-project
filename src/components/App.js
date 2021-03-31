@@ -14,6 +14,7 @@ export default class App extends Component {
         phoneNumber: '',
         email: '',
         address: '',
+        areasOfExpertise: [''],
       },
       education: [],
       experience: [],
@@ -21,21 +22,31 @@ export default class App extends Component {
   }
 
   save(name, data) {
-    this.setState((state) => {
-      state[name] = data;
-      return state;
-    });
+    this.setState(
+      (state) => {
+        state[name] = data;
+        console.log(data);
+        return state;
+      },
+      () => console.log(this.state[name])
+    );
   }
 
   render() {
     return (
       <div className='app'>
         <PersonalInfo
-          personalInfo={this.state.personalInfo}
+          fieldInfo={this.state.personalInfo}
           saveEdit={this.save.bind(this, 'personalInfo')}
         />
-        <Experience />
-        <Education />
+        <Experience
+          fieldInfo={this.state.experience}
+          saveEdit={this.save.bind(this, 'experience')}
+        />
+        <Education
+          fieldInfo={this.state.education}
+          saveEdit={this.save.bind(this, 'education')}
+        />
       </div>
     );
   }

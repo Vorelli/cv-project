@@ -1,15 +1,21 @@
 .app
   max-width: 800px
   margin: 0 auto
-  .personalInfo
+  .personalInfo, .workExperience, .education
     width: 100%
     text-align: center
-    div
+    div.header
       float: left
+      width: 100%
+      h1
+        margin-bottom: 10px
     div.inputFields
+      margin-bottom: 20px
+      float: left
       width: 100%
       div.field
         width: 100%
+        float: left
         label, input, div
           height: 25px
           display: block
@@ -25,9 +31,15 @@
     div.saveEdit
       margin-top: 5px
       width: 100%
+      float: left
       button
-        width: 50px
         font-size: 75%
+        margin: 0 50px
+        width: 100px
+  div.addButton
+    float: left
+    width: 100%
+    margin-top: -10px
   h1
     font-size: 200%
     text-decoration: bold
