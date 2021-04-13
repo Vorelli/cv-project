@@ -5,6 +5,8 @@ export default class PersonalInfo extends Component {
   constructor(props) {
     super(props);
 
+    console.log(this.props);
+
     this.state = {
       fields: [
         { class: 'firstName', label: 'First Name' },
@@ -25,7 +27,7 @@ export default class PersonalInfo extends Component {
     return (
       <div className='personalInfo'>
         <div className='header'>
-          <h1 key={'heading'}>Personal Info</h1>
+          <h2 key={'heading'}>Personal Info</h2>
         </div>
         <Fields
           fieldInfo={this.props.fieldInfo}

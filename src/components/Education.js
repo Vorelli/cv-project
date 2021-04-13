@@ -53,6 +53,23 @@ export default class Education extends Component {
     this.props.saveEdit(this.props.fieldInfo.concat(emptyEducation));
   }
 
+  addExperience() {
+    const emptyExperience = {
+      jobTitle: '',
+      company: '',
+      startMonth: '',
+      startYear: '',
+      endMonth: '',
+      endYear: '',
+      oneLineSummary: '',
+      responsibilities: [''],
+    };
+    console.log(emptyExperience);
+    let newObj = this.props.fieldInfo.concat(emptyExperience);
+    console.log(newObj);
+    this.props.saveEdit(newObj);
+  }
+
   render() {
     const educationFields = this.props.fieldInfo.map((field, index) => {
       return (
@@ -70,7 +87,7 @@ export default class Education extends Component {
     return (
       <div className='education'>
         <div className='header'>
-          <h1>Education History</h1>
+          <h2>Education History</h2>
         </div>
         {educationFields}
         <div className='addButton'>

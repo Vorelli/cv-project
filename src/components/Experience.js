@@ -84,7 +84,7 @@ export default class Experience extends Component {
     return (
       <div className='workExperience'>
         <div className='header'>
-          <h1>Work Experience</h1>
+          <h2>Work Experience</h2>
         </div>
         {fieldsList}
         <button type='button' onClick={this.addExperience.bind(this)}>
