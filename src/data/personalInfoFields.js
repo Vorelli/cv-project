@@ -5,8 +5,12 @@ export default [
   { class: 'email', label: 'Email Address:', type: 'email' },
   { class: 'address', label: 'Physical Address:' },
   {
-    class: 'areasOfExpertise',
-    label: 'Areas of Expertise',
+    class: 'professionalSummary',
+    label: 'Professional Summary:',
+  },
+  {
+    class: 'professionalWebsites',
+    label: 'Professional Websites (can leave blank):',
     multipleInputs: true,
   },
 ];

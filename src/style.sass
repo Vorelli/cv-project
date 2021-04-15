@@ -11,13 +11,15 @@
       h1
         margin-bottom: 10px
     div.inputFields
-      margin-bottom: 20px
+      margin-bottom: 5px
+      margin-top: 10px
       float: left
       width: 100%
       div.field
         width: 100%
-        float: left
+        display: flex
         label, input, div
+          flex: 1
           height: 25px
           display: block
           float: left
@@ -29,6 +31,8 @@
           text-align: left
         input
           border-bottom: 1px solid black
+        button
+          flex: 1
     div.saveEdit
       margin-top: 5px
       width: 100%
@@ -37,6 +41,9 @@
         font-size: 75%
         margin: 0 50px
         width: 100px
+    >button
+      margin-bottom: 15px
+      margin-top: 5px
   div.addButton
     float: left
     width: 100%
@@ -47,3 +54,5 @@
   h2
     font-size: 150%
     text-decoration: bold
+input ~ label
+  background-color: grey

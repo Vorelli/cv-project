@@ -4,22 +4,11 @@ export default class Fields extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { editing: true };
-  }
-
-  handleChange(event, index, multipleInputs) {
-    /*
-    this.setState((state, _) => {
-      let tempValues = state.tempValues;
-      if (multipleInputs) {
-        const arr = tempValues[event.target.className];
-        arr[index] = event.target.value;
-        tempValues[event.target.className] = arr;
-      } else tempValues[event.target.className] = event.target.value;
-      console.log(tempValues);
-      state.tempValues = tempValues;
-      return { state };
-    }); */
+    this.state = {
+      editing: true,
+      fields: props.fieldsTotal.fields,
+      multipleFields: props.fieldsTotal.multipleFields,
+    };
   }
 
   saveEdit() {
@@ -64,59 +53,52 @@ export default class Fields extends Component {
   }
 
   render() {
-    console.log(this.props.fields, this.props.fieldInfo);
     let displayedFields = [];
-    for (let i = 0; i < this.props.fields.length; i++) {
-      const key = this.props.fields[i].class;
+    for (let i = 0; i < this.state.fields.length; i++) {
+      const key = this.state.fields[i].class;
 
-      const numInputDisplays =
-        1 ||
-        (this.props.fields[i].multipleInputs &&
-          this.props.fieldInfo[key].length);
+      let numInputDisplays = 1;
+      if (this.state.fields[i].multipleInputs)
+        numInputDisplays = this.props.fieldInfo[key].length;
       const fields = [];
 
       for (let j = 0; j < numInputDisplays; j++) {
-        const label = <label>{j == 0 ? this.props.fields[i].label : ''}</label>;
+        const label = <label>{j == 0 ? this.state.fields[i].label : ''}</label>;
         let inputOrDisplay;
         if (this.state.editing) {
-          inputOrDisplay = this.makeInput(this.props.fields[i], j);
+          inputOrDisplay = this.makeInput(this.state.fields[i], j);
         } else {
-          inputOrDisplay = this.makeDisplay(this.props.fields[i], j);
+          inputOrDisplay = this.makeDisplay(this.state.fields[i], j);
         }
 
-        const singularField = (
-          <div
-            className='field'
-            key={
-              this.props.fieldInfo[key].class +
-              ':' +
-              this.props.fields[i].label +
-              i
-            }
-          >
-            {label}
+        fields.push(
+          <div className='field' key={key + j}>
+            {j > 0 ? (
+              <button
+                type='button'
+                className='deleteEntry'
+                onClick={this.props.deleteEntry.bind(this, key, j)}
+              >
+                Delete
+              </button>
+            ) : (
+              label
+            )}
             {inputOrDisplay}
           </div>
         );
-
-        fields.push(singularField);
       }
 
-      if (this.props.fields[i].multipleInputs) {
+      if (this.state.fields[i].multipleInputs) {
         fields.push(
           <button
             type='button'
             onClick={
-              this.props.addEntry
-                ? this.props.addEntry.bind(
-                    this,
-                    this.props.fieldInfo[key].class
-                  )
-                : null
+              this.props.addEntry ? this.props.addEntry.bind(this, key) : null
             }
             key='addButton'
           >
-            {'Add ' + this.props.fields[i].label}
+            {'Add ' + this.state.fields[i].label}
           </button>
         );
       }
@@ -124,65 +106,7 @@ export default class Fields extends Component {
       displayedFields.push(fields);
     }
 
-    /* const fieldKeys = Object.keys(this.props.fieldInfo);
-    const displayedFields = fieldKeys.map((key) => {
-      const numInputDisplays =
-        1 || this.props.fieldInfo[this.props.fields[key].class].length;
-      const fields = [];
-      for (let i = 0; i < numInputDisplays; i++) {
-        const label = (
-          <label htmlFor={this.props.fields[key].class}>
-            {i == 0 ? fieldInfo[key].label : ''}
-          </label>
-        );
-        let inputOrDisplay;
-        if (this.state.editing)
-          inputOrDisplay = this.makeInput({
-            className: fieldInfo[key].class,
-            type: fieldInfo[key].type,
-            index: i,
-            multipleInputs: fieldInfo[key].multipleInputs,
-          });
-        else
-          inputOrDisplay = this.makeDisplay({
-            className: fieldInfo[key].class,
-            index: i,
-            multipleInputs: fieldInfo[key].multipleInputs,
-          });
-
-        const singularField = (
-          <div
-            className='field'
-            key={fieldInfo[key].class + ':' + fieldInfo[key].label + i}
-          >
-            {label}
-            {inputOrDisplay}
-          </div>
-        );
-
-        fields.push(singularField);
-      }
-
-      if (fieldInfo[key].multipleInputs) {
-        fields.push(
-          <button
-            type='button'
-            onClick={
-              this.props.addEntry
-                ? this.props.addEntry.bind(this, fieldInfo[key].class)
-                : null
-            }
-            key='addButton'
-          >
-            {'Add ' + fieldInfo[key].label}
-          </button>
-        );
-      }
-
-      return fields;
-    }); */
-
-    const del = this.props.multipleFields ? (
+    const del = this.state.multipleFields ? (
       <button type='button' onClick={this.props.deleteSingular.bind(this)}>
         Delete
       </button>

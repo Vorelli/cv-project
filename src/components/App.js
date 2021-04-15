@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import PersonalInfo from './PersonalInfo';
-import Education from './Education';
-import Experience from './Experience';
 import educationFields from '../data/educationFields';
 import experienceFields from '../data/experienceFields';
 import personalInfoFields from '../data/personalInfoFields';
@@ -43,70 +40,60 @@ export default class App extends Component {
   createEmptyFieldInfo(fields) {
     let values = {};
     for (let i = 0; i < fields.length; i++) {
-      console.log(fields[i]);
-      console.log(fields[i].multipleInputs);
-      values[fields[i].class] = fields[i].multipleInputs ? [''] : '';
-      console.log(values[fields[i].class]);
+      // initialize multiple inputs with 3 rather than 1 as it's
+      // easier to delete rather than create and i feel like 3 is
+      // a good middleground.
+      values[fields[i].class] = fields[i].multipleInputs ? ['', '', ''] : '';
     }
     return values;
   }
 
-  addEducation() {
-    this.setState((state) => {
-      state.values.education.push(this.createEmptyFieldInfo(educationFields));
-      return state;
-    });
-  }
+  handleChange(fieldName, indexOfField, event, valueProperties) {
+    const { multipleInputs, index, className } = valueProperties;
+    const value = event.target.value;
+    event.preventDefault();
 
-  addExperience() {
     this.setState((state) => {
-      state.values.experience.push(this.createEmptyFieldInfo(experienceFields));
-      return state;
-    });
-  }
-
-  handleChange(field, indexOfField, event, valueProperties) {
-    console.log(this.state.values[field][indexOfField]);
-    this.setState((state) => {
-      if (valueProperties.multipleInputs) {
-        state.values[field][indexOfField][valueProperties.className][
-          valueProperties.index
-        ] = event.target.value;
+      if (multipleInputs) {
+        state.values[fieldName][indexOfField][className][index] = value;
       } else {
-        state.values[field][indexOfField][valueProperties.className] =
-          event.target.value;
+        state.values[fieldName][indexOfField][className] = value;
       }
-      console.log(state.values, event.target.value);
       return state;
     });
   }
 
-  save(name, data) {
-    this.setState(
-      (state) => {
-        state[name] = data;
-        console.log(data);
-        return state;
-      },
-      () => console.log(this.state[name])
-    );
+  addField(fieldsName) {
+    this.setState((state) => {
+      const { fields } = this.state.fields[fieldsName];
+      const emptyFieldInfo = this.createEmptyFieldInfo(fields);
+      state.values[fieldsName].push(emptyFieldInfo);
+      return state;
+    });
   }
 
-  deleteSingular(a, b, c) {
-    console.log(a, b, c);
+  deleteField(fieldName, fieldIndex) {
+    this.setState((state) => {
+      state.values[fieldName].splice(fieldIndex, 1);
+      return state;
+    });
   }
 
-  addEntry(a, b, c) {
-    console.log(a, b, c);
+  addEntry(fieldName, fieldIndex, entryName) {
+    this.setState((state) => {
+      state.values[fieldName][fieldIndex][entryName].push('');
+      return state;
+    });
   }
 
-  addField(a, b, c, d) {
-    console.log(a, b, c, d);
+  deleteEntry(fieldName, fieldIndex, entryName, entryIndex) {
+    this.setState((state) => {
+      state.values[fieldName][fieldIndex][entryName].splice(entryIndex, 1);
+      return state;
+    });
   }
 
   render() {
-    console.log(this.state);
-
     return (
       <div className='app'>
         <h1>CV Generator</h1>
@@ -114,9 +101,10 @@ export default class App extends Component {
           fieldsInfo={this.state.values}
           fields={this.state.fields}
           handleInput={this.handleChange.bind(this)}
-          deleteSingular={this.deleteSingular.bind(this)}
+          deleteSingular={this.deleteField.bind(this)}
           addEntry={this.addEntry.bind(this)}
           addField={this.addField.bind(this)}
+          deleteEntry={this.deleteEntry.bind(this)}
         />
       </div>
     );
