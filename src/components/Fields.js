@@ -58,11 +58,7 @@ export default class Fields extends Component {
       const key = this.state.fields[i].class;
 
       let numInputDisplays = 1;
-<<<<<<< HEAD
       if (this.state.fields[i].multipleInputs)
-=======
-      if (this.state.multipleInputs)
->>>>>>> 5e1c06110bb8b9e4a7e2ae25dd2c85de0da85dd5
         numInputDisplays = this.props.fieldInfo[key].length;
       const fields = [];
 
