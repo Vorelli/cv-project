@@ -3,6 +3,8 @@ import educationFields from '../data/educationFields';
 import experienceFields from '../data/experienceFields';
 import personalInfoFields from '../data/personalInfoFields';
 import FieldsDisplayer from './FieldsDisplayer';
+import CvPreview from './CvPreview';
+import ReactToPrint from 'react-to-print';
 
 export default class App extends Component {
   constructor(props) {
@@ -93,7 +95,13 @@ export default class App extends Component {
     });
   }
 
+  generateCV(ref) {
+    useReactToPrint({ content: () => ref.current });
+  }
+
   render() {
+    const refForPrinting = React.createRef();
+
     return (
       <div className='app'>
         <h1>CV Generator</h1>
@@ -106,6 +114,19 @@ export default class App extends Component {
           addField={this.addField.bind(this)}
           deleteEntry={this.deleteEntry.bind(this)}
         />
+        <ReactToPrint
+          trigger={() => (
+            <button
+              type='button'
+              className='generate'
+              onClick={this.generateCV.bind(this, refForPrinting)}
+            >
+              Print CV
+            </button>
+          )}
+          content={() => refForPrinting.current}
+        />
+        <CvPreview values={this.state.values} ref={refForPrinting} />
       </div>
     );
   }

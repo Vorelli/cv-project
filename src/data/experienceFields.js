@@ -1,10 +1,11 @@
 export default [
   { class: 'jobTitle', label: 'Job Title:' },
   { class: 'company', label: 'Company:' },
-  { class: 'startMonth', label: 'Start Month:' },
-  { class: 'startYear', label: 'Start Year:' },
-  { class: 'endMonth', label: 'End Month (N/A if presently employed):' },
-  { class: 'endYear', label: 'End Year (N/A if presently employed):' },
+  { class: 'startOfEmployment', label: 'Employment start (Format: MM/YYYY):' },
+  {
+    class: 'endOfEmployment',
+    label: 'End of employment (Format: MM/YYYY, can use Present):',
+  },
   { class: 'oneLineSummary', label: 'One line sumary:' },
   {
     class: 'responsibilities',

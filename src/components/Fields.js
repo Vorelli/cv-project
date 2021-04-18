@@ -7,7 +7,7 @@ export default class Fields extends Component {
     this.state = {
       editing: true,
       fields: props.fieldsTotal.fields,
-      multipleFields: props.fieldsTotal.multipleFields,
+      multipleFields: props.fieldsTotal.multipleValues,
     };
   }
 

@@ -52,7 +52,61 @@
     font-size: 200%
     text-decoration: bold
   h2
-    font-size: 150%
+    font-size: 175%
     text-decoration: bold
-input ~ label
-  background-color: grey
+.generate
+  font-size: 125%
+
+ul
+  list-style: disc
+  li
+    display: list-item
+    margin-left: 1em
+    list-style-type: disc
+
+.cvPreview
+  text-align: left
+  .experienceName, .educationName
+    font-size: 175%
+  p, ul, a
+    margin-bottom: 3px
+
+  .container
+    display: grid
+    grid-template-columns: 70% 30%
+    grid-template-rows: auto
+    .professionalSummaryPreview, .workExperiencePreview, .educationPreview
+      grid-column: 1 / span 1
+    .name
+      font-size: 200%
+      text-decoration: underline
+      grid-column: 1 / span 2
+    .professionalSummaryPreview
+      margin-bottom: 20px
+    .contactInfoPreview
+      grid-column: 2 / span 1
+      display: flex
+      flex-direction: column
+      li, p, div
+        flex: 1
+    .educationPreview
+      h2
+        margin-bottom: 10px
+      .singularEducation
+        margin-bottom: 10px
+        p.schoolName
+          font-size: 125%
+        .date
+          font-size: 80%
+    .workExperiencePreview
+      h2
+        margin-bottom: 10px
+      .singularExperience
+        display: flex
+        flex-direction: column
+        .jobTitle
+          font-size: 125%
+        .oneLineSummary
+          margin-bottom: 5px
+        .datesOfEmployment
+          font-size: 80%

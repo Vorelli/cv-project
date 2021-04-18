@@ -21,6 +21,7 @@ export default function FieldsDisplayer(props) {
           fields={props.fields[fieldInfoKey].fields}
           addEntry={props.addEntry.bind(this, fieldInfoKey, index)}
           deleteEntry={props.deleteEntry.bind(this, fieldInfoKey, index)}
+          index={index}
         />
       );
     });
